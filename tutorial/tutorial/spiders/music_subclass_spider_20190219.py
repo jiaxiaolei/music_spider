@@ -2,13 +2,6 @@ import scrapy
 
 class QuotesSpider(scrapy.Spider):
     name = "music_sheet"
-
-    start_urls_dict = dict(piano='https://www.8notes.com/piano/',
-                           guitar='https://www.8notes.com/guitar/',
-                           violin='https://www.8notes.com/violin/',
-
-
-                                  )
     start_urls = [
         'https://www.8notes.com/piano/', # piano
         'https://www.8notes.com/guitar/', # guitar
@@ -46,8 +39,6 @@ class QuotesSpider(scrapy.Spider):
     ]
 
     def parse(self, response):
-        #for key, value in start_urls_dict.items():
-
         for item in response.css('a.gs'):
             yield {
                 #'text': item.extract_first(),

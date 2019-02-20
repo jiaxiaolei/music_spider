@@ -11,8 +11,8 @@ class QuotesSpider(scrapy.Spider):
         for item in response.css('div.listboxmain'):
             for i in item.css('a.listboxrow'):
                 
-                
                 href =  i.css('a.listboxrow').attrib['href']
+                print("----href: %s", href)
 
                 span =  i.css('span::text').extract()
                 if len(span) != 3:
