@@ -1,60 +1,67 @@
+
 import scrapy
 
+from test_torndb import * 
+
+from base import BASE_URL
+
 class QuotesSpider(scrapy.Spider):
-    name = "music_sheet"
+    name = "music_subclass"
 
-    start_urls_dict = dict(piano='https://www.8notes.com/piano/',
-                           guitar='https://www.8notes.com/guitar/',
-                           violin='https://www.8notes.com/violin/',
+    data = query_music_class_all()
+    print '-----data: ', data 
 
+    start_urls_dict = {}
+    for item in data:
+        subclass_url = BASE_URL + item['subclass_url']
+        #class_ = item['class']
+        #subclass = item['subclass']
+        
+        start_urls_dict.update({subclass_url:item})
+        #start_urls_dict.update(dict(subclass_url=item))
 
-                                  )
-    start_urls = [
-        'https://www.8notes.com/piano/', # piano
-        'https://www.8notes.com/guitar/', # guitar
-        'https://www.8notes.com/violin/', # violin
-        'https://www.8notes.com/flute/', # flute
-        'https://www.8notes.com/saxophone/', # altosax
-        'https://www.8notes.com/voice/', # voice
-        'https://www.8notes.com/clarinet/', # clarinet
-        'https://www.8notes.com/trumpet/', # trumpet
-        'https://www.8notes.com/viola/', # viola
-        'https://www.8notes.com/trombone/', # trombone
-        'https://www.8notes.com/cello/', # cello
-        'https://www.8notes.com/drums/sheet_music/', # drums sheet
-        'https://www.8notes.com/percussion/all/', # percussion all
-        'https://www.8notes.com/recorder/', # recorder subclass
-        'https://www.8notes.com/oboe/', # oboe  
-        'https://www.8notes.com/bass_guitar/', # bass guitar
-        'https://www.8notes.com/french_horn/', # horn
-        'https://www.8notes.com/bassoon/', # bassoon
-        'https://www.8notes.com/tuba/', # tuba
-        'https://www.8notes.com/double_bass/all/', # double_bass all
-        'https://www.8notes.com/organ/sheet_music/', # organ sheet
-        'https://www.8notes.com/euphonium/all/', # euphonium  all
-        'https://www.8notes.com/banjo/all/', # banjo all
-        'https://www.8notes.com/mandolin/all/', # mandolin all
-        'https://www.8notes.com/ukulele/', # ukulele
-        'https://www.8notes.com/strings/', # strings
-        'https://www.8notes.com/wind/', # wind
-        'https://www.8notes.com/guitar_groups/', # guitar_group
-        'https://www.8notes.com/brass/', # brass
-        'https://www.8notes.com/mixed/', # mixed
-        'https://www.8notes.com/classroom/', # classroom
-        'https://www.8notes.com/keyboards/', # keyboards # special
-   
+    print '-----start_urls_dict: ', start_urls_dict
+
+    start_urls = start_urls_dict.keys()
+    print '-----start_urls: ', start_urls
+    
+    start_urls_ = [
+        'https://www.8notes.com/piano/classical/sheet_music/', # piano classical
+
     ]
 
     def parse(self, response):
-        #for key, value in start_urls_dict.items():
 
-        for item in response.css('a.gs'):
-            yield {
-                #'text': item.extract_first(),
-                #'text': item.extract(),
-                'subclass': item.css('a.gs::text').extract(),
-                #'text': item.css('span.text::text').extract_first(),
-                #'author': item.css('small.author::text').extract_first(),
-                #'tags': item.css('div.tags a.tag::text').extract(),
-            }
+        data = self.start_urls_dict.get(response.url)
+ 
+        for item in response.css('div.listboxmain'):
+            for i in item.css('a.listboxrow'):
+                
+                
+                href =  i.css('a.listboxrow').attrib['href']
+
+                span =  i.css('span::text').extract()
+                if len(span) != 3:
+                    continue
+
+                artname = i.css('span::text').extract_first()
+                title =  i.css('span::text').extract()[1]
+                date =  i.css('span::text').extract()[2]
+     
+                item = {'class':data['class'],
+                           'subclass':data['subclass'],
+                            'subclass_url':data['subclass_url'],
+                            'item_url':href,
+                            'artname':artname,
+                            'title':title,
+                            'date':date}
+
+                insert_music_subclass(item)
+                 
+                yield {
+                    'artname': i.css('span::text').extract_first(),
+                    'href': href,
+                    'title': i.css('span::text').extract()[1],
+                    'date': i.css('span::text').extract()[2] ,
+                }
 
