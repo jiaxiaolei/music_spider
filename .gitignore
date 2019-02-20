@@ -1,0 +1,14 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.swp
+.idea/
+conf
+.coverage
+.cache/
+.tox/
+AUTHORS
+CMDB2.0.egg-info/
+tests/.tox/
+ChangeLog
+
