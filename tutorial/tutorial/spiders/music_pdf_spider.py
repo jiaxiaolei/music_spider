@@ -1,8 +1,11 @@
+
 import re
 
 import scrapy
 
+from base import BASE_URL
 from test_torndb import * 
+from test_download import *
 
 class QuotesSpider(scrapy.Spider):
     name = "music_pdf"
@@ -24,13 +27,10 @@ class QuotesSpider(scrapy.Spider):
                     item = dict(pdf_url=href)
                     insert_music_pdf(item)
 
+                    download_pdf(BASE_URL+href)
+
                 else:
                     continue
-
-              
-   
-      
-    
 
     def parse2(self, response):
 
@@ -43,5 +43,4 @@ class QuotesSpider(scrapy.Spider):
             #href = response.css('div.score::text').extract()
             #href = response.css('div.score').attrib['style']
             print("------pdf href: ", href)
-
 

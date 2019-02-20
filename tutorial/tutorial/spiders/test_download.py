@@ -14,21 +14,21 @@ url = 'https://www.8notes.com/school/png/piano/chopin_prelude_28_4001.png'
 
 file_name = url.split('/')[-1]
 
-response = requests.get(url)
+#response = requests.get(url)
 
 my_pdf_path = '/root/jia_scrapy/tutorial/tutorial/spiders/pdf'
 my_mp3_path = '/root/jia_scrapy/tutorial/tutorial/spiders/mp3'
 
-path = file_path + '/%s' % file_name 
+#path = file_path + '/%s' % file_name 
 
-print '----file---', file_name 
+#print '----file---', file_name 
 
-mkdir(file_path)
+#mkdir(file_path)
 
-with open(path, 'wb') as f:
-    f.write(response.content)
-
-print 'end'
+#with open(path, 'wb') as f:
+#    f.write(response.content)
+#
+#print 'end'
 
 
 def download_pdf(url, file_path=None, file_name=None):
@@ -42,6 +42,7 @@ def download_pdf(url, file_path=None, file_name=None):
     mkdir(file_path)
     
     path = file_path + '/%s' % file_name 
+    response = requests.get(url)
     with open(path, 'wb') as f:
         f.write(response.content)
 
@@ -56,6 +57,8 @@ def download_mp3(url, file_path=None, file_name=None):
     mkdir(file_path)
     
     path = file_path + '/%s' % file_name 
+
+    response = requests.get(url)
     with open(path, 'wb') as f:
         f.write(response.content)
 

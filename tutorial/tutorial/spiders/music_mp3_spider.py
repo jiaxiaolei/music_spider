@@ -1,7 +1,9 @@
 
 import scrapy
 
+from base import BASE_URL
 from test_torndb import * 
+from test_download import *
 
 class QuotesSpider(scrapy.Spider):
     name = "music_mp3"
@@ -16,6 +18,8 @@ class QuotesSpider(scrapy.Spider):
         print("------mp3 href: ", href)
         item = dict(mp3_url=href)
         insert_music_item(item)
+
+        download_mp3(BASE_URL+href)
 
         return
 
