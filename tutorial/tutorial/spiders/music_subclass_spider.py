@@ -48,7 +48,7 @@ class QuotesSpider(scrapy.Spider):
                 title =  i.css('span::text').extract()[1]
                 date =  i.css('span::text').extract()[2]
      
-                item = {'class':data['class'],
+                d = {'class':data['class'],
                            'subclass':data['subclass'],
                             'subclass_url':data['subclass_url'],
                             'item_url':href,
@@ -56,7 +56,7 @@ class QuotesSpider(scrapy.Spider):
                             'title':title,
                             'date':date}
 
-                insert_music_subclass(item)
+                insert_music_subclass(d)
                  
                 yield {
                     'artname': i.css('span::text').extract_first(),

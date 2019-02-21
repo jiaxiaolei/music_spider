@@ -45,25 +45,13 @@ def insert_music_pdf(item):
     """
     """
    
-    sql_cmd = 'UPDATE music_item SET pdf_url = "%s", pdf_name = "%s" WHERE id = %s' % (item['pdf_url'], item['pdf_name'], item['id'])
+    sql_cmd = 'UPDATE music_item SET pdf_url = "%s" WHERE id = %s' % (item['pdf_url'], item['id'])
     #sql_cmd = 'INSERT INTO music(class,subclass,title,artname,pdf_url, mp3_url)  values("paino","66","66","66","%s","66")' % item['pdf_url']
 
     print "sql_cmd", sql_cmd
     db.execute(sql_cmd)
 
 # TODO: mp3
-
-def insert_music_mp3(item):
-    """
-    """
-   
-    sql_cmd = 'UPDATE music_item SET mp3_url = "%s", mp3_name = "%s" WHERE id = %s' % (item['mp3_url'], item['mp3_name'], item['id'])
-    #sql_cmd = 'INSERT INTO music(class,subclass,title,artname,pdf_url, mp3_url)  values("paino","66","66","66","%s","66")' % item['pdf_url']
-
-    print "sql_cmd", sql_cmd
-    db.execute(sql_cmd)
-
-
 
 
 def insert_music_list(item):
@@ -99,12 +87,7 @@ def query_music_class_all():
     return res 
 
 def query_music_item_all():
-    # NOTE: for test
-    #sql_cmd = "SELECT * FROM music_item  WHERE id = 1671 "
-    sql_cmd = "SELECT * FROM music_item  WHERE mp3_url = '%s' " % '""'
-    res = db.query(sql_cmd)
-    #res = db.query("SELECT * FROM music_item  WHERE pdf_url = '""' ")
-    print 'len res', len(res)
+    res = db.query('SELECT * FROM music_item  WHERE pdf_url = '""' ')
     return res 
 
 
