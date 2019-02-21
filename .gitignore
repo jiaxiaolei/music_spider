@@ -9,6 +9,8 @@ conf
 .cache/
 .tox/
 AUTHORS
+pdf
+mp3
 CMDB2.0.egg-info/
 tests/.tox/
 ChangeLog
