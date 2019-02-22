@@ -1,4 +1,6 @@
 
+import time
+
 import scrapy
 
 from base import BASE_URL
@@ -48,6 +50,7 @@ class QuotesSpider(scrapy.Spider):
         insert_music_mp3(d)
 
         download_mp3(BASE_URL+href)
+        time.sleep(0.1)
 
         return
 

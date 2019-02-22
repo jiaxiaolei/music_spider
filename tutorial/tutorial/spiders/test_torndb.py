@@ -113,6 +113,41 @@ def query_music_by_id(id=1):
     res = db.query('SELECT * FROM music WHERE id = %s', id)
     print '----res:', res
 
+
+"""Fix
+"""
+def fix_pdf():
+
+    sql_cmd = "SELECT * FROM music_item WHERE pdf_name = '%s'  and pdf_url != '%s' " % ( '""', '""' )
+    print '----sql_cmd:', sql_cmd 
+    res = db.query(sql_cmd)
+
+    print 'len res', len(res)
+
+
+    for item in res:
+        # 
+        pdf_url = item['pdf_url']
+        id_ = item['id']
+        pdf_name = pdf_url.split('/')[-1]
+
+        print '------ pdf_name', pdf_name
+        continue
+       
+        pdf_sql_cmd = "UPDATE music_item SET pdf_name = '%s' WHERE id = %s " % ( pdf_name,  id_)
+        print '------ pdf_sql_cmd', pdf_sql_cmd
+        
+        try:
+            db.execute(pdf_sql_cmd)
+        except Exception as e:
+            print e.args
+    
+
+
+   # print '----res:', res
+
 if __name__ == '__main__':
     print 'come into main'
-    query_music_item_all()
+    #query_music_item_all()
+    fix_pdf() 
+    
