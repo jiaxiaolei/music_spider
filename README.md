@@ -21,6 +21,7 @@ www.8notes.com 有很多类乐器，每类乐器又会有自己的子类。
 
 
 主要目录：
+```
 $ yum install tree
 $ tree -L 4
 .
@@ -51,6 +52,7 @@ $ tree -L 4
             |-- test_download.py
             |-- test_torndb.py  # 操作数据库
 
+```
 
 主要数据表：
 
