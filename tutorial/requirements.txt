@@ -32,7 +32,7 @@ singledispatch==3.4.0.3
 six==1.12.0
 tornado==5.1.1
 torndb==0.3
-Twisted==18.9.0
+Twisted==22.2.0
 urllib3==1.24.1
 w3lib==1.20.0
 zope.interface==4.6.0
